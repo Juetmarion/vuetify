@@ -2,18 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+// Helpers
 import colors from 'vuetify/es5/util/colors'
 
 Vue.use(Vuetify, {
-  theme:  {
-    primary: colors.indigo.base,
-    secondary: colors.purple.base,
-    accent: colors.pink.base,
-    error: colors.red.base,
-    warning: colors.teal.base,
-    info: colors.cyan.base,
-    success: colors.green.base
-    }
+  theme: {
+    primary: colors.red.darken1, // #E53935
+    secondary: colors.red.lighten4, // #FFCDD2
+    accent: colors.indigo.base // #3F51B5
+  }
 })
 new Vue({
   el: '#app',

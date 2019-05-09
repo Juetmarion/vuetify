@@ -255,11 +255,11 @@ body {
 }
 
 .footer {
-	color: #777;
-	padding: 10px 15px;
-	height: 20px;
-	text-align: center;
-	border-top: 1px solid #e6e6e6;
+    color: #777;
+    padding: 51px 0px;
+    /* height: 20px; */
+    /* text-align: center; */
+    border-top: 1px solid #e6e6e6;
 }
 
 .footer:before {
@@ -287,10 +287,11 @@ body {
 }
 
 .filters {
+	text-align: right;
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	position: absolute;
+	position: relative;
 	right: 0;
 	left: 0;
 }
@@ -374,4 +375,10 @@ html .clear-completed:active {
 	.filters {
 		bottom: 10px;
 	}
+}
+
+
+.sizeTrash{
+	font-size: large;
+    margin-left: 6%;
 }

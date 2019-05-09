@@ -2,28 +2,37 @@
     <section class="todoapp">
         <header class="header">
             <h1> Todos </h1>
-               <v-btn color="success">Success</v-btn>
-                <v-btn color="error">Error</v-btn>
-                <v-btn color="warning">Warning</v-btn>
-                <v-btn color="info">Info</v-btn>
             <v-text-field v-model="newTodo" label="Ajouter une tache" class="new-todo" @keyup.enter="addTodo()"></v-text-field>
+                        <v-btn class="todo-count" color="info blue">Tâches à faire : <strong> {{ remaining }} </strong></v-btn>
+            <ul class="filters">
+                <v-btn href="#" :class="{selected: filter==='all'}" @click.prevent="filter='all'" color="info pink"> Toutes </v-btn>
+                <v-btn href="#" :class="{selected: filter==='todo'}" @click.prevent="filter='todo'" color="info orange"> à faire </v-btn>
+                <v-btn href="#" :class="{selected: filter==='done'}" @click.prevent="filter='done'" color="info green"> faites </v-btn>
+            </ul>            
             <v-checkbox v-model="allDone" class="toggle" label="Tous"></v-checkbox>
         </header>
         <div class="main">            
             <ul class="todo-list">
-                <li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed}">
+                <li class="todo" v-for="todo in filteredTodos" :class="{completed: todo.completed, editing: todo === editing}">
                     <div class="view">
                         <input type="checkbox" v-model="todo.completed" class="toggle"> 
-                        <label @dblclick="editTodo(todo)">{{ todo.name }}</label>
-                        <!-- <v-checkbox v-model="todo.completed" class="toggle"></v-checkbox> -->
-                    </div>
+                        <label @dblclick="editTodo(todo)">
+                            {{ todo.name }}   
+                            <i class="fas fa-trash sizeTrash" @click.prevent="deleteTodo(todo)"></i>
+                        </label>
+                        
+                    </div><input type="text" class="edit" v-model="todo.name" @blur="doneEdit" @keyup.enter="doneEdit" @keyup.esc="cancelEdit" v-focus="todo === editing">
                 </li>
             </ul>
-        </div>    
+        </div>   
+        <footer class="footer" v-show="hasTodos">
+            <v-btn class="clear-completed" v-show="completed" @click.prevent="deleteCompleted" color="info red"> Supprimer les taches terminées </v-btn>            
+        </footer> 
 </section>
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
     data() {
         return{
@@ -35,7 +44,8 @@ export default {
             newTodo: '' ,
             filter: 'all',
             // on crée editing pour sauvegarder la tache modifiée
-            editing: null
+            editing: null,
+            oldTodo: ""
         }
     },
     methods: {
@@ -57,9 +67,17 @@ export default {
             // on filtre en récuperant celles qui ne sont pas complétées
             this.todos = this.todos.filter(todo => !todo.completed)
         },
-        editTodo(){
+        editTodo(todo){
             // on lui indique quel todo modifier
             this.editing = todo
+            this.oldTodo = todo.name
+        },
+        doneEdit(){
+            this.editing = null
+        },
+        cancelEdit(){
+            this.editing = this.oldTodo
+            this.editing = null
         }
     },
     computed: {
@@ -96,7 +114,17 @@ export default {
             return this.todos
         }
     },
+    directives:{
+        focus(el, value){
+            if (value){
+                Vue.nextTick(()=> {
+                el.focus()
+                })
+            }
+        }
+    }
 }
 </script>
 
 <style src="./todo.css"></style>
+<style src="./vuetify.css"></style>
