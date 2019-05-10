@@ -5,7 +5,7 @@
             <v-text-field v-model="newTodo" label="Ajouter une tache" class="new-todo" @keyup.enter="addTodo()"></v-text-field>
                         <v-btn class="todo-count" color="info blue">Tâches à faire : <strong> {{ remaining }} </strong></v-btn>
             <ul class="filters">
-                <v-btn href="#" :class="{selected: filter==='all'}" @click.prevent="filter='all'" color="info pink"> Toutes </v-btn>
+                 <v-btn href="#" :class="{selected: filter==='all'}" @click.prevent="filter='all'" color="info pink"> Toutes </v-btn>
                 <v-btn href="#" :class="{selected: filter==='todo'}" @click.prevent="filter='todo'" color="info orange"> à faire </v-btn>
                 <v-btn href="#" :class="{selected: filter==='done'}" @click.prevent="filter='done'" color="info green"> faites </v-btn>
             </ul>            
